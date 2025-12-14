@@ -4,7 +4,7 @@
   "type": "library",
   "license": "MIT",
   "require": {
-    "php": "^8.4",
+    "php": "^8.2",
     "doctrine/dbal": "^4.4",
     "illuminate/support": "^11.0|^12.0",
     "jenssegers/agent": "^2.6"
@@ -17,8 +17,7 @@
     "rector/rector": "^2.2",
     "larastan/larastan": "^3.8",
     "pestphp/pest-plugin-type-coverage": "^3.6",
-    "laravel/pint": "^1.26",
-    "symfony/intl": "^8.0"
+    "laravel/pint": "^1.26"
   },
   "suggest": {
     "geoip2/geoip2": "Required to enable MaxMind GeoLite2 IP geolocation support",
