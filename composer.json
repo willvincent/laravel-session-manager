@@ -2,6 +2,7 @@
   "name": "willvincent/laravel-session-manager",
   "description": "Enhanced session management for Laravel with device tracking and remote logout",
   "type": "library",
+  "license": "MIT",
   "require": {
     "php": "^8.2",
     "doctrine/dbal": "^4.4",
