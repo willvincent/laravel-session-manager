@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace WillVincent\SessionManager\Service;
 
-use GeoIp2\Model\City;
 use GeoIp2\Database\Reader;
 use GeoIp2\Exception\AddressNotFoundException;
+use GeoIp2\Model\City;
 use Illuminate\Contracts\Cache\Repository as CacheRepository;
 use Throwable;
 use WillVincent\SessionManager\Data\SessionLocation;
@@ -29,7 +29,7 @@ class MaxMindIpLocationResolver
 
     public function resolve(string $ip): ?SessionLocation
     {
-        if (!$this->reader instanceof Reader) {
+        if (! $this->reader instanceof Reader) {
             return null;
         }
 
@@ -50,7 +50,7 @@ class MaxMindIpLocationResolver
     {
         try {
             $record = $this->reader?->city($ip);
-            if (!$record instanceof City) {
+            if (! $record instanceof City) {
                 return null;
             }
 

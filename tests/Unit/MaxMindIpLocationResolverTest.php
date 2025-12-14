@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-use Illuminate\Contracts\Cache\Repository;
 use GeoIp2\Database\Reader;
 use GeoIp2\Exception\AddressNotFoundException;
+use Illuminate\Contracts\Cache\Repository;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Config;
 use WillVincent\SessionManager\Service\MaxMindIpLocationResolver;

@@ -32,7 +32,7 @@ it('indexes session metadata for authenticated user with redis driver', function
     DB::shouldReceive('table')->with('sessions')->andReturnSelf();
     DB::shouldReceive('upsert')
         ->once()
-        ->withArgs(fn($records, $uniqueBy, $update): bool => isset($records[0]['id'])
+        ->withArgs(fn ($records, $uniqueBy, $update): bool => isset($records[0]['id'])
             && $records[0]['user_id'] === 1
             && $uniqueBy === ['id']
             && $update === ['user_id', 'ip_address', 'user_agent', 'last_activity'])
@@ -155,7 +155,7 @@ it('captures request IP and user agent', function (): void {
     DB::shouldReceive('table')->with('sessions')->andReturnSelf();
     DB::shouldReceive('upsert')
         ->once()
-        ->withArgs(fn($records): bool => $records[0]['ip_address'] === '192.168.1.100'
+        ->withArgs(fn ($records): bool => $records[0]['ip_address'] === '192.168.1.100'
             && $records[0]['user_agent'] === 'Mozilla/5.0 Test Browser')
         ->andReturn(1);
 
@@ -178,7 +178,7 @@ it('handles null user agent', function (): void {
     DB::shouldReceive('table')->with('sessions')->andReturnSelf();
     DB::shouldReceive('upsert')
         ->once()
-        ->withArgs(fn($records): bool => is_string($records[0]['user_agent']))
+        ->withArgs(fn ($records): bool => is_string($records[0]['user_agent']))
         ->andReturn(1);
 
     $response = $this->middleware->handle($request, fn () => response('OK'));

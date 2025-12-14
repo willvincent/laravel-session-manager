@@ -14,7 +14,7 @@ beforeEach(function (): void {
 });
 
 it('resolves location with high confidence when city and region available', function (): void {
-    $dbPath = __DIR__ . '/../GeoLite2-City.mmdb';
+    $dbPath = __DIR__.'/../GeoLite2-City.mmdb';
 
     if (! file_exists($dbPath)) {
         $this->markTestSkipped('MaxMind database not available');
@@ -29,10 +29,10 @@ it('resolves location with high confidence when city and region available', func
     expect($result)->toBeInstanceOf(SessionLocation::class)
         ->and($result->city)->not->toBeNull()
         ->and($result->confidence)->toBeInstanceOf(LocationConfidence::class);
-})->skip(! file_exists(__DIR__ . '/../GeoLite2-City.mmdb'), 'MaxMind database not available');
+})->skip(! file_exists(__DIR__.'/../GeoLite2-City.mmdb'), 'MaxMind database not available');
 
 it('resolves location with medium confidence when only city available', function (): void {
-    $dbPath = __DIR__ . '/../GeoLite2-City.mmdb';
+    $dbPath = __DIR__.'/../GeoLite2-City.mmdb';
 
     if (! file_exists($dbPath)) {
         $this->markTestSkipped('MaxMind database not available');
@@ -45,10 +45,10 @@ it('resolves location with medium confidence when only city available', function
 
     expect($result)->toBeInstanceOf(SessionLocation::class)
         ->and($result->countryCode)->not->toBeNull();
-})->skip(! file_exists(__DIR__ . '/../GeoLite2-City.mmdb'), 'MaxMind database not available');
+})->skip(! file_exists(__DIR__.'/../GeoLite2-City.mmdb'), 'MaxMind database not available');
 
 it('stores coordinates when enabled', function (): void {
-    $dbPath = __DIR__ . '/../GeoLite2-City.mmdb';
+    $dbPath = __DIR__.'/../GeoLite2-City.mmdb';
 
     if (! file_exists($dbPath)) {
         $this->markTestSkipped('MaxMind database not available');
@@ -62,10 +62,10 @@ it('stores coordinates when enabled', function (): void {
     expect($result)->toBeInstanceOf(SessionLocation::class)
         ->and($result->latitude)->not->toBeNull()
         ->and($result->longitude)->not->toBeNull();
-})->skip(! file_exists(__DIR__ . '/../GeoLite2-City.mmdb'), 'MaxMind database not available');
+})->skip(! file_exists(__DIR__.'/../GeoLite2-City.mmdb'), 'MaxMind database not available');
 
 it('does not store coordinates when disabled', function (): void {
-    $dbPath = __DIR__ . '/../GeoLite2-City.mmdb';
+    $dbPath = __DIR__.'/../GeoLite2-City.mmdb';
 
     if (! file_exists($dbPath)) {
         $this->markTestSkipped('MaxMind database not available');
@@ -79,10 +79,10 @@ it('does not store coordinates when disabled', function (): void {
     expect($result)->toBeInstanceOf(SessionLocation::class)
         ->and($result->latitude)->toBeNull()
         ->and($result->longitude)->toBeNull();
-})->skip(! file_exists(__DIR__ . '/../GeoLite2-City.mmdb'), 'MaxMind database not available');
+})->skip(! file_exists(__DIR__.'/../GeoLite2-City.mmdb'), 'MaxMind database not available');
 
 it('uses cache when resolve is called', function (): void {
-    $dbPath = __DIR__ . '/../GeoLite2-City.mmdb';
+    $dbPath = __DIR__.'/../GeoLite2-City.mmdb';
 
     if (! file_exists($dbPath)) {
         $this->markTestSkipped('MaxMind database not available');
@@ -99,10 +99,10 @@ it('uses cache when resolve is called', function (): void {
     expect($result1)->toBeInstanceOf(SessionLocation::class)
         ->and($result2)->toBeInstanceOf(SessionLocation::class)
         ->and($result1->city)->toBe($result2->city);
-})->skip(! file_exists(__DIR__ . '/../GeoLite2-City.mmdb'), 'MaxMind database not available');
+})->skip(! file_exists(__DIR__.'/../GeoLite2-City.mmdb'), 'MaxMind database not available');
 
 it('determines confidence level based on available data', function (): void {
-    $dbPath = __DIR__ . '/../GeoLite2-City.mmdb';
+    $dbPath = __DIR__.'/../GeoLite2-City.mmdb';
 
     if (! file_exists($dbPath)) {
         $this->markTestSkipped('MaxMind database not available');
@@ -116,10 +116,10 @@ it('determines confidence level based on available data', function (): void {
     expect($result)->toBeInstanceOf(SessionLocation::class)
         ->and($result->confidence)->toBeInstanceOf(LocationConfidence::class)
         ->and($result->source)->toBe('maxmind');
-})->skip(! file_exists(__DIR__ . '/../GeoLite2-City.mmdb'), 'MaxMind database not available');
+})->skip(! file_exists(__DIR__.'/../GeoLite2-City.mmdb'), 'MaxMind database not available');
 
 it('handles cache bypass when disabled', function (): void {
-    $dbPath = __DIR__ . '/../GeoLite2-City.mmdb';
+    $dbPath = __DIR__.'/../GeoLite2-City.mmdb';
 
     if (! file_exists($dbPath)) {
         $this->markTestSkipped('MaxMind database not available');
@@ -133,4 +133,4 @@ it('handles cache bypass when disabled', function (): void {
     $result = $resolver->resolve('81.2.69.142');
 
     expect($result)->toBeInstanceOf(SessionLocation::class);
-})->skip(! file_exists(__DIR__ . '/../GeoLite2-City.mmdb'), 'MaxMind database not available');
+})->skip(! file_exists(__DIR__.'/../GeoLite2-City.mmdb'), 'MaxMind database not available');
