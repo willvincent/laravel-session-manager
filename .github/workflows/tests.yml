@@ -72,8 +72,6 @@ jobs:
         uses: codecov/codecov-action@v5
         with:
           files: ./coverage.xml
-          fail_ci_if_error: false
-          verbose: true
           token: ${{ secrets.CODECOV_TOKEN }}
 
       - name: Upload test reports to Codecov
