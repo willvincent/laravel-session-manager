@@ -1,0 +1,54 @@
+{
+  "name": "willvincent/laravel-session-manager",
+  "description": "Enhanced session management for Laravel with device tracking and remote logout",
+  "type": "library",
+  "require": {
+    "php": "^8.2",
+    "illuminate/support": "^11.0|^12.0",
+    "jenssegers/agent": "^2.6",
+    "geoip2/geoip2": "^3.3",
+    "symfony/intl": "^8.0",
+    "doctrine/dbal": "^4.4"
+  },
+  "require-dev": {
+    "orchestra/testbench": "^9.0",
+    "pestphp/pest": "^3.0",
+    "rector/rector": "^2.2",
+    "larastan/larastan": "^3.8",
+    "pestphp/pest-plugin-type-coverage": "^3.6",
+    "driftingly/rector-laravel": "^2.1",
+    "laravel/pint": "^1.26"
+  },
+  "suggest": {
+    "geoip2/geoip2": "Required to enable MaxMind GeoLite2 IP geolocation support",
+    "symfony/intl": "Improves localized country and timezone names for session locations",
+    "ext-intl": "Enables localized country and timezone display via PHP Intl"
+  },
+  "autoload": {
+    "psr-4": {
+      "WillVincent\\SessionManager\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "WillVincent\\SessionManager\\Tests\\": "tests/"
+    }
+  },
+  "scripts": {
+    "test": "vendor/bin/pest",
+    "test-coverage": "XDEBUG_MODE=coverage vendor/bin/pest --coverage",
+    "type-coverage": "vendor/bin/pest --type-coverage"
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "WillVincent\\SessionManager\\SessionManagerServiceProvider"
+      ]
+    }
+  },
+  "config": {
+    "allow-plugins": {
+      "pestphp/pest-plugin": true
+    }
+  }
+}
