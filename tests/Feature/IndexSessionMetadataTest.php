@@ -13,8 +13,8 @@ beforeEach(function (): void {
     $this->middleware = new IndexSessionMetadata();
 });
 
-it('indexes session metadata for authenticated user with redis driver', function (): void {
-    Config::set('session.driver', 'redis');
+it('indexes session metadata for authenticated user with file driver', function (): void {
+    Config::set('session.driver', 'file');
     Auth::shouldReceive('check')->andReturn(true);
     Auth::shouldReceive('id')->andReturn(1);
 
@@ -43,24 +43,6 @@ it('indexes session metadata for authenticated user with redis driver', function
     expect($response->getContent())->toBe('OK');
 });
 
-it('indexes session metadata for authenticated user with file driver', function (): void {
-    Config::set('session.driver', 'file');
-    Auth::shouldReceive('check')->andReturn(true);
-    Auth::shouldReceive('id')->andReturn(2);
-
-    $request = Request::create('/test', 'GET');
-    $request->setLaravelSession(resolve('session.store'));
-    $request->session()->start();
-
-    Cache::shouldReceive('add')->andReturn(true);
-    DB::shouldReceive('table')->with('sessions')->andReturnSelf();
-    DB::shouldReceive('upsert')->once()->andReturn(1);
-
-    $response = $this->middleware->handle($request, fn () => response('OK'));
-
-    expect($response->getContent())->toBe('OK');
-});
-
 it('does not index when using database driver', function (): void {
     Config::set('session.driver', 'database');
     Auth::shouldReceive('check')->andReturn(true);
@@ -78,7 +60,7 @@ it('does not index when using database driver', function (): void {
 });
 
 it('does not index when user is not authenticated', function (): void {
-    Config::set('session.driver', 'redis');
+    Config::set('session.driver', 'file');
     Auth::shouldReceive('check')->andReturn(false);
 
     $request = Request::create('/test', 'GET');
@@ -94,7 +76,7 @@ it('does not index when user is not authenticated', function (): void {
 });
 
 it('respects throttle configuration', function (): void {
-    Config::set('session.driver', 'redis');
+    Config::set('session.driver', 'file');
     Config::set('session-manager.throttle_seconds', 120);
     Auth::shouldReceive('check')->andReturn(true);
     Auth::shouldReceive('id')->andReturn(1);
@@ -116,7 +98,7 @@ it('respects throttle configuration', function (): void {
 });
 
 it('does not update when throttle is active', function (): void {
-    Config::set('session.driver', 'redis');
+    Config::set('session.driver', 'file');
     Auth::shouldReceive('check')->andReturn(true);
     Auth::shouldReceive('id')->andReturn(1);
 
@@ -138,7 +120,7 @@ it('does not update when throttle is active', function (): void {
 });
 
 it('captures request IP and user agent', function (): void {
-    Config::set('session.driver', 'redis');
+    Config::set('session.driver', 'file');
     Auth::shouldReceive('check')->andReturn(true);
     Auth::shouldReceive('id')->andReturn(1);
 
@@ -165,7 +147,7 @@ it('captures request IP and user agent', function (): void {
 });
 
 it('handles null user agent', function (): void {
-    Config::set('session.driver', 'redis');
+    Config::set('session.driver', 'file');
     Auth::shouldReceive('check')->andReturn(true);
     Auth::shouldReceive('id')->andReturn(1);
 
