@@ -63,6 +63,9 @@ jobs:
       - name: Run type coverage
         run: composer type-coverage
 
+      - name: Run tests
+        run: composer test
+
       - name: Run tests with coverage
         if: matrix.laravel == '12.*'
         run: composer test-coverage
