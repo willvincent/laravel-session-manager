@@ -11,9 +11,9 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Jenssegers\Agent\Agent;
 use stdClass;
+use WillVincent\SessionManager\Contracts\IpLocationResolver;
 use WillVincent\SessionManager\Data\SessionDevice;
 use WillVincent\SessionManager\Data\UserSession;
-use WillVincent\SessionManager\Service\MaxMindIpLocationResolver;
 
 final class SessionManager
 {
@@ -43,7 +43,7 @@ final class SessionManager
             $location = null;
 
             if (config('session-manager.location.enabled')) {
-                $location = resolve(MaxMindIpLocationResolver::class)
+                $location = resolve(IpLocationResolver::class)
                     ->resolve($session->ip_address);
             }
 

@@ -9,10 +9,11 @@ use GeoIp2\Exception\AddressNotFoundException;
 use GeoIp2\Model\City;
 use Illuminate\Contracts\Cache\Repository as CacheRepository;
 use Throwable;
+use WillVincent\SessionManager\Contracts\IpLocationResolver;
 use WillVincent\SessionManager\Data\SessionLocation;
 use WillVincent\SessionManager\Enums\LocationConfidence;
 
-class MaxMindIpLocationResolver
+final class MaxMindIpLocationResolver implements IpLocationResolver
 {
     private ?Reader $reader = null;
 

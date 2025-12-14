@@ -7,6 +7,7 @@ namespace WillVincent\SessionManager;
 use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\ServiceProvider;
+use WillVincent\SessionManager\Contracts\IpLocationResolver;
 use WillVincent\SessionManager\Service\MaxMindIpLocationResolver;
 
 final class SessionManagerServiceProvider extends ServiceProvider
@@ -20,7 +21,7 @@ final class SessionManagerServiceProvider extends ServiceProvider
 
         $this->loadTranslationsFrom(__DIR__.'/../lang', 'session-manager');
 
-        $this->app->singleton(MaxMindIpLocationResolver::class, function (): MaxMindIpLocationResolver {
+        $this->app->singleton(IpLocationResolver::class, function (): IpLocationResolver {
             /** @var array{maxmind: array{database_path: string|null, store_coordinates: bool}, cache: array{store: string|null, ttl: int}} $config */
             $config = config('session-manager.location');
 
@@ -36,6 +37,9 @@ final class SessionManagerServiceProvider extends ServiceProvider
                 storeCoordinates: $config['maxmind']['store_coordinates'],
             );
         });
+
+        // Backwards compat: allow resolving the concrete class
+        $this->app->alias(IpLocationResolver::class, MaxMindIpLocationResolver::class);
 
         $this->app->singleton(SessionManager::class);
 

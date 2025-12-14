@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use WillVincent\SessionManager\Data\SessionLocation;
 use WillVincent\SessionManager\Enums\LocationConfidence;
-use WillVincent\SessionManager\Service\MaxMindIpLocationResolver;
+use WillVincent\SessionManager\Contracts\IpLocationResolver;
 use WillVincent\SessionManager\SessionManager;
 
 it('does not resolve location when disabled', function (): void {
@@ -46,12 +46,12 @@ it('resolves location when enabled', function (): void {
         confidence: LocationConfidence::HIGH,
     );
 
-    $mockResolver = Mockery::mock(MaxMindIpLocationResolver::class);
+    $mockResolver = Mockery::mock(IpLocationResolver::class);
     $mockResolver->shouldReceive('resolve')
         ->with('8.8.8.8')
         ->andReturn($mockLocation);
 
-    app()->instance(MaxMindIpLocationResolver::class, $mockResolver);
+    app()->instance(IpLocationResolver::class, $mockResolver);
 
     Auth::shouldReceive('id')->andReturn(1);
     Session::shouldReceive('getId')->andReturn('session-456');
@@ -77,12 +77,12 @@ it('resolves location when enabled', function (): void {
 it('handles null location from resolver', function (): void {
     Config::set('session-manager.location.enabled', true);
 
-    $mockResolver = Mockery::mock(MaxMindIpLocationResolver::class);
+    $mockResolver = Mockery::mock(IpLocationResolver::class);
     $mockResolver->shouldReceive('resolve')
         ->with('127.0.0.1')
         ->andReturn(null);
 
-    app()->instance(MaxMindIpLocationResolver::class, $mockResolver);
+    app()->instance(IpLocationResolver::class, $mockResolver);
 
     Auth::shouldReceive('id')->andReturn(1);
     Session::shouldReceive('getId')->andReturn('session-789');
@@ -126,7 +126,7 @@ it('resolves location for multiple sessions', function (): void {
         confidence: LocationConfidence::HIGH,
     );
 
-    $mockResolver = Mockery::mock(MaxMindIpLocationResolver::class);
+    $mockResolver = Mockery::mock(IpLocationResolver::class);
     $mockResolver->shouldReceive('resolve')
         ->with('1.2.3.4')
         ->andReturn($location1);
@@ -134,7 +134,7 @@ it('resolves location for multiple sessions', function (): void {
         ->with('5.6.7.8')
         ->andReturn($location2);
 
-    app()->instance(MaxMindIpLocationResolver::class, $mockResolver);
+    app()->instance(IpLocationResolver::class, $mockResolver);
 
     Auth::shouldReceive('id')->andReturn(1);
     Session::shouldReceive('getId')->andReturn('session-1');
@@ -179,12 +179,12 @@ it('resolves location with different confidence levels', function (): void {
         confidence: LocationConfidence::LOW,
     );
 
-    $mockResolver = Mockery::mock(MaxMindIpLocationResolver::class);
+    $mockResolver = Mockery::mock(IpLocationResolver::class);
     $mockResolver->shouldReceive('resolve')
         ->with('9.9.9.9')
         ->andReturn($lowConfidenceLocation);
 
-    app()->instance(MaxMindIpLocationResolver::class, $mockResolver);
+    app()->instance(IpLocationResolver::class, $mockResolver);
 
     Auth::shouldReceive('id')->andReturn(1);
     Session::shouldReceive('getId')->andReturn('session-low');
