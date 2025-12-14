@@ -75,3 +75,11 @@ jobs:
           fail_ci_if_error: false
           verbose: true
           token: ${{ secrets.CODECOV_TOKEN }}
+
+      - name: Upload test reports to Codecov
+        if: matrix.laravel == '12.*' && !cancelled()
+        uses: codecov/test-results-action@v1
+        with:
+          files: ./junit.xml
+          token: ${{ secrets.CODECOV_TOKEN }}
+

@@ -30,6 +30,7 @@ Thumbs.db
 /coverage/
 /.phpunit.cache/
 clover.xml
+junit.xml
 
 # Environment
 .env
