@@ -17,31 +17,38 @@ Enhanced session management for Laravel applications with device tracking and re
 
 ## Quick Start
 
-Install the package:
+#### Install the package
 
 ```bash
 composer require willvincent/laravel-session-manager
 ```
-Publish config, language files & migrations:
+
+#### Publish config and language files
+
 ```bash
 php artisan vendor:publish --tag=session-manager-config
 php artisan vendor:publish --tag=session-manager-lang
 ```
 
-The next two steps are only necessary if not using the `database` driver.
+### If **not** using the `database` session driver
 
-Publish migrations, ensure stock session table migration was created, then migrate:
+> The following steps are **only required** if your application is **not** using Laravel’s `database` session driver.
+
+#### Publish migrations and ensure the sessions table exists
 
 ```bash
 php artisan vendor:publish --tag=session-manager-migrations
-php artisan session:table # If you don't already have the session table in your DB.
+php artisan session:table   # Only if the sessions table does not already exist
 php artisan migrate
 ```
 
-Add the session indexing middleware to the `web` middleware group:
+#### Register the session indexing middleware
+
+Add the middleware to the `web` middleware group:
 
 ```php
 // bootstrap/app.php
+
 ->withMiddleware(function (Middleware $middleware): void {
     $middleware->web(append: [
         \WillVincent\SessionManager\Http\Middleware\IndexSessionMetadata::class,
@@ -49,11 +56,46 @@ Add the session indexing middleware to the `web` middleware group:
 })
 ```
 
-Those two steps are not required when using the `database` session driver.
-In that case, session metadata is read directly from Laravel’s `sessions` table,
-which is already populated automatically.
+#### Schedule pruning of stale session data
 
-That’s it. Session metadata will now be tracked automatically.
+```php
+// routes/console.php
+
+use Illuminate\Support\Facades\Schedule;
+
+Schedule::command('session-manager:prune-sessions')
+    ->daily();
+```
+
+Adjust the schedule as needed.
+By default, the command removes session records older than Laravel’s configured session lifetime.
+
+Optional flags:
+
+* `--ttl=MINUTES` — override the session lifetime
+* `--dry-run` — show how many records would be deleted without deleting them
+
+Example:
+
+```bash
+php artisan session-manager:prune-sessions --dry-run
+```
+
+### Using the `database` session driver?
+
+If your application **uses Laravel’s `database` session driver**, the steps above are **not required**.
+
+In this case:
+
+* Session metadata is read directly from Laravel’s `sessions` table
+* Session records are already created and maintained automatically
+* Laravel’s built-in session garbage collection handles expiration
+
+### ✅ That’s it
+
+Session metadata will now be tracked automatically and kept clean over time.
+
+---
 
 ### Using the Facade
 
