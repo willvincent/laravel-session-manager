@@ -4,11 +4,11 @@
   "type": "library",
   "require": {
     "php": "^8.2",
+    "doctrine/dbal": "^4.4",
     "illuminate/support": "^11.0|^12.0",
     "jenssegers/agent": "^2.6"
   },
   "require-dev": {
-    "doctrine/dbal": "^4.4",
     "driftingly/rector-laravel": "^2.1",
     "geoip2/geoip2": "^3.3",
     "orchestra/testbench": "^9.0",
