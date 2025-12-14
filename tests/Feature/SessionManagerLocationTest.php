@@ -6,9 +6,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
+use WillVincent\SessionManager\Contracts\IpLocationResolver;
 use WillVincent\SessionManager\Data\SessionLocation;
 use WillVincent\SessionManager\Enums\LocationConfidence;
-use WillVincent\SessionManager\Contracts\IpLocationResolver;
 use WillVincent\SessionManager\SessionManager;
 
 it('does not resolve location when disabled', function (): void {
