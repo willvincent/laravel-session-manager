@@ -38,7 +38,7 @@
     "phpstan": "vendor/bin/phpstan analyze",
     "pint-test": "vendor/bin/pint --test",
     "test": "vendor/bin/pest",
-    "test-coverage": "XDEBUG_MODE=coverage vendor/bin/pest --coverage --coverage-clover=coverage.xml --log-junit=junit.xml",
+    "test-coverage": "XDEBUG_MODE=coverage vendor/bin/pest --parallel --coverage --coverage-clover=coverage.xml --log-junit=junit.xml",
     "type-coverage": "vendor/bin/pest --type-coverage"
   },
   "extra": {

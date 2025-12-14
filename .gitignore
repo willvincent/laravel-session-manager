@@ -29,6 +29,7 @@ Thumbs.db
 # Test Coverage
 /coverage/
 /.phpunit.cache/
+coverage.xml
 clover.xml
 junit.xml
 
