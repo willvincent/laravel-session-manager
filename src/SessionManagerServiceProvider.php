@@ -7,6 +7,7 @@ namespace WillVincent\SessionManager;
 use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\ServiceProvider;
+use WillVincent\SessionManager\Commands\PruneSessionsCommand;
 use WillVincent\SessionManager\Contracts\IpLocationResolver;
 use WillVincent\SessionManager\Service\MaxMindIpLocationResolver;
 
@@ -63,6 +64,10 @@ final class SessionManagerServiceProvider extends ServiceProvider
             $this->publishes([
                 __DIR__.'/../database/migrations/' => database_path('migrations'),
             ], 'session-manager-migrations');
+
+            $this->commands([
+                PruneSessionsCommand::class,
+            ]);
         }
     }
 }

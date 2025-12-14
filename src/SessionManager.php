@@ -18,6 +18,16 @@ use WillVincent\SessionManager\Data\UserSession;
 final class SessionManager
 {
     /**
+     * Get the session TTL in minutes from configuration.
+     */
+    public static function sessionLifetime(): int
+    {
+        $lifetime = config('session.lifetime');
+
+        return is_numeric($lifetime) ? (int) $lifetime : 120;
+    }
+
+    /**
      * Get all active sessions for a user.
      *
      * @param  int|string|null  $userId  User ID (defaults to current authenticated user)
@@ -31,8 +41,11 @@ final class SessionManager
             return collect();
         }
 
+        $cutoff = now()->subMinutes(self::sessionLifetime())->getTimestamp();
+
         $sessions = DB::table('sessions')
             ->where('user_id', $userId)
+            ->where('last_activity', '>=', $cutoff)
             ->orderBy('last_activity', 'desc')
             ->get();
 
@@ -123,8 +136,11 @@ final class SessionManager
             return 0;
         }
 
+        $cutoff = now()->subMinutes(self::sessionLifetime())->getTimestamp();
+
         return DB::table('sessions')
             ->where('user_id', $userId)
+            ->where('last_activity', '>=', $cutoff)
             ->count();
     }
 
