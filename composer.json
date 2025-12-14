@@ -35,7 +35,7 @@
     }
   },
   "scripts": {
-    "phpunit": "vendor/bin/phpstan analyze",
+    "phpstan": "vendor/bin/phpstan analyze",
     "pint-test": "vendor/bin/pint --test",
     "test": "vendor/bin/pest",
     "test-coverage": "XDEBUG_MODE=coverage vendor/bin/pest --coverage",
