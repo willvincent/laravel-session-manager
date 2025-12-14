@@ -47,7 +47,7 @@ jobs:
         run: composer phpstan
 
       - name: Run type coverage
-        run: composer test-type-coverage
+        run: composer type-coverage
 
       - name: Run tests
         run: composer test
