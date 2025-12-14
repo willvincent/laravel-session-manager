@@ -2,6 +2,9 @@
 
 Enhanced session management for Laravel applications with device tracking and remote session termination.
 
+[![Tests](https://github.com/willvincent/laravel-session-manager/actions/workflows/tests.yml/badge.svg)](https://github.com/willvincent/laravel-session-manager/actions/workflows/tests.yml)
+[![codecov](https://codecov.io/gh/willvincent/laravel-session-manager/graph/badge.svg?token=5AUQHEJWZ6)](https://codecov.io/gh/willvincent/laravel-session-manager)
+
 ## Features
 
 * 📱 Track user sessions across devices
