@@ -23,7 +23,6 @@ Thumbs.db
 
 # PHP
 .phpunit.result.cache
-phpunit.xml
 .php_cs.cache
 .php-cs-fixer.cache
 
